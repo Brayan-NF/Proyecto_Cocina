@@ -1,0 +1,485 @@
+/* --- VARIABLES GLOBALES Y PALETA DE RESTAURANTE DE LUJO --- */
+:root {
+    /* Paleta: borgoña, oro viejo, crema suave, negro de fondo */
+    --bg-main: #fcf8f6; /* Fondo principal muy claro, casi blanco */
+    --bg-body: #1a1a1a; /* Fondo oscuro para el body */
+    --card-bg: #ffffff;
+    --text-primary: #2c2c2c; /* Texto principal oscuro */
+    --text-muted: #888888; /* Texto secundario más suave */
+    --accent-burgundy: #6b0f1a; /* Borgoña oscuro, como un buen vino */
+    --accent-gold: #c99b39; /* Oro viejo, sutil y elegante */
+    --shadow-light: rgba(0, 0, 0, 0.04);
+    --shadow-medium: rgba(0, 0, 0, 0.08);
+    --shadow-strong: rgba(0, 0, 0, 0.15);
+    --border-subtle: #e0dcd9;
+    --radius-soft: 12px;
+    --radius-round: 9999px;
+    --transition-speed: 0.3s;
+    --transition-ease: cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* --- ESTILOS BASE Y REINICIO --- */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Fuentes para títulos y contenido */
+h1, h2, h3 {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+}
+
+p {
+    font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 300;
+}
+
+
+/* El main se convierte en el "lienzo" central */
+main {
+    max-width: 1400px;
+    margin: 0 auto 60px auto;
+    /* Padding inferior para la barra de nav de ESCRITORIO */
+    padding: 20px 0 80px 0; 
+    background-color: var(--bg-main);
+    box-shadow: 0 0 30px var(--shadow-strong);
+    border-radius: var(--radius-soft);
+    position: relative;
+    z-index: 1;
+    flex-grow: 1;
+}
+
+/* --- ENCABEZADO SUPERIOR (BANNER) --- */
+.Guajira {
+    width: 100%;
+    height: 450px;
+    background-image: url('res/Encabezado.jpg');
+    background-size: cover;
+    background-position: center 60%;
+    background-repeat: no-repeat;
+    background-color: var(--bg-body);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 20px var(--shadow-strong);
+}
+.Guajira::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.4) 100%);
+    z-index: 1;
+}
+
+/* --- TÍTULO PRINCIPAL DEL GLOSARIO --- */
+.glossary-header {
+    max-width: 100%;
+    margin: -80px auto 40px auto;
+    padding: 30px 40px;
+    text-align: center;
+    background: var(--card-bg);
+    border-radius: var(--radius-soft);
+    box-shadow: 0 10px 30px var(--shadow-medium);
+    position: relative;
+    z-index: 2;
+    border: 1px solid var(--border-subtle);
+}
+
+.glossary-header h1 {
+    margin: 0;
+    font-size: 4.5rem;
+    letter-spacing: 1.5px;
+    color: var(--accent-burgundy);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+    font-weight: 700;
+}
+.glossary-header .count {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-top: 10px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+}
+
+/* --- NAVEGACIÓN ALFABÉTICA (BASE: FIJA INFERIOR) --- */
+/* Este es el estilo para ESCRITORIO */
+.alpha-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    transform: none;
+    display: flex;
+    flex-direction: row; /* Horizontal */
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 12px 20px;
+    border-radius: var(--radius-soft) var(--radius-soft) 0 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+    box-sizing: border-box;
+    overflow-x: auto; /* Scroll horizontal si es necesario */
+    white-space: nowrap;
+}
+
+.alpha-nav a {
+    display: block;
+    padding: 6px 10px;
+    background: transparent;
+    color: var(--accent-burgundy);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border: 1px solid transparent;
+    font-family: 'Lato', sans-serif;
+    transition: all var(--transition-speed) var(--transition-ease);
+}
+
+.alpha-nav a:hover {
+    background: rgba(var(--accent-burgundy-rgb), 0.1);
+    color: var(--accent-gold);
+    transform: translateY(-3px);
+}
+.alpha-nav a:focus {
+    outline: 2px solid var(--accent-gold);
+    outline-offset: 2px;
+    border-color: rgba(var(--accent-burgundy-rgb), 0.3);
+}
+
+/* --- SECCIONES DE INGREDIENTES --- */
+.alpha-section {
+    padding: 60px 40px;
+    text-align: center;
+    border-bottom: 1px dashed var(--border-subtle);
+    position: relative;
+    --accent-burgundy-rgb: 107, 15, 26;
+    scroll-margin-top: 150px;
+}
+.alpha-section:last-of-type {
+    border-bottom: none;
+}
+
+.alpha-section h2 {
+    font-size: 3.8rem;
+    margin: 0 0 40px 0;
+    color: var(--accent-burgundy);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 15px;
+}
+.alpha-section h2::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 80px;
+    height: 4px;
+    background-color: var(--accent-gold);
+    border-radius: 2px;
+}
+
+/* --- GRID DE TARJETAS DE INGREDIENTES --- */
+.glossary-container {
+    display: grid;
+    gap: 35px;
+    margin-top: 40px;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    padding: 0 40px;
+}
+
+/* --- TARJETA DE INGREDIENTE INDIVIDUAL (ELEGANT) --- */
+.ingredient-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-soft);
+    overflow: hidden;
+    transition: transform var(--transition-speed) var(--transition-ease), box-shadow var(--transition-speed) var(--transition-ease);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 450px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 6px 20px var(--shadow-light);
+}
+
+.ingredient-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px var(--shadow-medium);
+}
+
+/* Regla para centrar tarjeta única */
+.ingredient-card:first-child:last-child {
+    grid-column: 1 / span 2;
+    justify-self: center;
+    max-width: 450px;
+}
+
+
+/* Avatar de la imagen del ingrediente */
+.ingredient-avatar {
+    height: 220px;
+    background: linear-gradient(135deg, rgba(var(--accent-gold-rgb),0.1), rgba(var(--accent-burgundy-rgb),0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+.ingredient-avatar::before {
+    content: '';
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    opacity: 0.7;
+    animation: pulse-light 4s infinite ease-in-out;
+    pointer-events: none;
+}
+
+@keyframes pulse-light {
+    0% { transform: scale(0.9) rotate(0deg); opacity: 0.7; }
+    50% { transform: scale(1.1) rotate(5deg); opacity: 0.8; }
+    100% { transform: scale(0.9) rotate(0deg); opacity: 0.7; }
+}
+
+
+.ingredient-avatar img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: var(--radius-round);
+    border: 6px solid var(--card-bg);
+    box-shadow: 0 5px 15px var(--shadow-medium);
+    transition: transform var(--transition-speed) var(--transition-ease);
+    position: relative;
+    z-index: 1;
+}
+
+.ingredient-card:hover .ingredient-avatar img {
+    transform: scale(1.05) rotate(-2deg);
+}
+
+/* Contenido de texto de la tarjeta */
+.card-text {
+    padding: 25px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    justify-content: center;
+    text-align: center;
+}
+
+.ingredient-card h3 {
+    font-size: 2rem;
+    margin: 0;
+    color: var(--accent-burgundy);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.ingredient-card p {
+    font-family: 'Lato', sans-serif;
+    color: var(--text-muted);
+    margin: 0;
+    font-size: 1.2rem;
+    font-style: italic;
+    font-weight: 400;
+}
+
+/* --- ELEMENTO DECORATIVO CHEF --- */
+.chef {
+    width: 400px;
+    height: 600px;
+    display: block;
+    position: fixed;
+    /* Se sienta sobre la barra de nav inferior */
+    bottom: 60px; 
+    left: 50px;
+    background-image: url('res/chef.png');
+    background-size: contain;
+    background-position: bottom left;
+    background-repeat: no-repeat;
+    z-index: 50;
+    pointer-events: none;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
+}
+
+/* --- PIE DE PÁGINA --- */
+.footer {
+    background: var(--bg-body);
+    padding: 40px 60px;
+    text-align: center;
+    box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.footer-text {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #aaaaaa;
+    font-weight: 300;
+}
+
+/* --- RESPONSIVE DESIGN (BREAKPOINTS) --- */
+
+/* Breakpoint para pantallas medianas (tablets) */
+@media (max-width: 1000px) {
+    .chef {
+        left: 20px;
+        width: 300px;
+        height: 450px;
+    }
+}
+
+
+/* Móvil y pantallas pequeñas */
+@media (max-width: 768px) {
+    body {
+        background-image: none;
+    }
+    
+    main {
+        max-width: 100%;
+        margin: 0;
+        /* CAMBIADO: Resetea el padding inferior (la barra ya no está abajo) */
+        padding: 0 0 40px 0; 
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .Guajira {
+        height: 300px;
+        background-position: center;
+    }
+    .glossary-header {
+        margin: -50px 10px 30px 10px;
+        padding: 20px 20px;
+        border-radius: var(--radius-soft);
+    }
+    .glossary-header h1 {
+        font-size: 2.5rem;
+    }
+    .glossary-header .count {
+        font-size: 0.9rem;
+    }
+
+    /* ======================================================= */
+    /* ¡AQUÍ ESTÁ EL CAMBIO! */
+    /* Anulamos el estilo de nav base y lo hacemos vertical */
+    /* ======================================================= */
+    .alpha-nav {
+        top: 50%;
+        bottom: auto; /* Resetea el 'bottom' del escritorio */
+        left: auto;   /* Resetea el 'left' del escritorio */
+        right: 10px;  /* Posiciona a la derecha */
+        transform: translateY(-50%); /* Centra verticalmente */
+        flex-direction: column; /* Apila las letras verticalmente */
+        width: auto; /* Ancho automático */
+        overflow-x: hidden; /* Oculta scroll horizontal */
+        overflow-y: auto;   /* Permite scroll vertical si es necesario */
+        max-height: 90vh; /* Límite de altura (70% de la pantalla) */
+        padding: 15px 10px;
+        border-radius: var(--radius-soft); /* Bordes redondeados */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border-top: 1px solid rgba(0,0,0,0.1); /* Restaura el borde */
+        
+    }
+    .alpha-nav a{
+        font-size: 0.5rem;
+        padding: 2px 4px;
+    }
+
+    .alpha-nav a:hover {
+        transform: translateX(-3px); /* Cambia el transform de hover */
+    }
+    /* ======================================================= */
+    /* FIN DEL CAMBIO */
+    /* ======================================================= */
+
+
+    .alpha-section {
+        padding: 40px 20px;
+        scroll-margin-top: 100px;
+    }
+    .alpha-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+    }
+    .glossary-container {
+        grid-template-columns: 1fr; /* Una sola columna en móvil */
+        gap: 25px;
+        padding: 0 20px;
+    }
+    .ingredient-card {
+        flex-direction: row; /* Vuelve a fila en móvil para mini-tarjetas */
+        max-width: 100%;
+        text-align: left;
+        align-items: center;
+        padding: 10px;
+    }
+
+    /* Regla para centrar tarjeta única en móvil (no aplica si ya es 1 columna) */
+    .ingredient-card:first-child:last-child {
+        grid-column: 1; /* Resetea la regla de escritorio */
+        justify-self: auto; 
+    }
+
+    .ingredient-avatar {
+        height: 100px;
+        flex: 0 0 100px;
+        padding: 10px;
+    }
+    .ingredient-avatar img {
+        width: 70px;
+        height: 70px;
+        border-width: 4px;
+        box-shadow: 0 3px 8px var(--shadow-light);
+    }
+    .ingredient-card h3 {
+        font-size: 1.3rem;
+    }
+    .ingredient-card p {
+        font-size: 1rem;
+    }
+    .card-text {
+        padding: 10px 15px;
+        text-align: left;
+    }
+    .chef {
+        display: none;
+    }
+    .footer {
+        padding: 30px 20px;
+    }
+}

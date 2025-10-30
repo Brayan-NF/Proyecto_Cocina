@@ -1,0 +1,111 @@
+/* ======== CONFIGURACIÓN GENERAL Y FUENTES ======== */
+:root {
+    --font-principal: 'Montserrat', sans-serif;
+    --color-texto-oscuro: #333;
+    --color-texto-claro: #f0f0f0;
+    --color-texto-secundario: #666;
+    --color-borde: #e0e0e0;
+    --color-fondo-tarjeta: #2a2a2a;
+}
+
+/* Reseteo básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-principal);
+    color: var(--color-texto-oscuro);
+    background-color: #ffffff;
+}
+
+/* ======== HEADER ======== */
+header {
+    background-color: #302E2E;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-texto-claro);
+}
+
+header .logo-container {
+    display: flex;
+    align-items: center;
+}
+
+header .sena-logo {
+    width: 50px;
+    margin-right: 1rem;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+header nav ul {
+    display: flex;
+    list-style: none;
+}
+
+header nav li {
+    margin-left: 1.5rem;
+}
+
+header nav a {
+    text-decoration: none;
+    color: var(--color-texto-claro);
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+header nav a:hover {
+    color: #c0c0c0;
+}
+
+/* ======== FOOTER ======== */
+footer {
+    background-color: #302E2E;
+    color: var(--color-texto-claro);
+    text-align: center;
+    padding: 2rem 1.5rem;
+    margin-top: 3rem;
+}
+
+footer .sena-logo {
+    width: 80px;
+    margin-bottom: 1rem;
+    filter: brightness(0) invert(1);
+}
+
+footer p {
+    font-size: 0.8rem;
+    color: #c0c0c0;
+    line-height: 1.5;
+}
+
+/* ======== ADAPTACIÓN MÓVIL (Media Queries) ======== */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    header h1 {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+    }
+
+    header nav ul {
+        margin-top: 1rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header nav li {
+        margin: 0.5rem 0;
+    }
+}

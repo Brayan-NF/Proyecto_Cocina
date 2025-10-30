@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>carrot cream</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Georgia', 'Times New Roman', serif;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        min-height: 100vh;
+        padding: 40px 20px;
+    }
+
+    .recipe-card {
+        max-width: 1200px;
+        margin: 0 auto 60px auto;
+        background: white;
+        border-radius: 0;
+        overflow: hidden;
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Header */
+    .header {
+        background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        padding: 50px 60px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #888 0%, #ccc 50%, #888 100%);
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .title-section {
+        flex: 1;
+    }
+
+    .recipe-type {
+        display: inline-block;
+        font-family: 'Arial', sans-serif;
+        font-size: 11px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #999;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .recipe-title {
+        font-size: 56px;
+        color: white;
+        font-weight: 300;
+        letter-spacing: -1px;
+        margin-bottom: 20px;
+        font-style: italic;
+    }
+
+    .recipe-meta {
+        display: flex;
+        gap: 40px;
+        margin-top: 25px;
+    }
+
+    .meta-item {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .meta-label {
+        font-family: 'Arial', sans-serif;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #666;
+    }
+
+    .meta-value {
+        font-size: 18px;
+        color: #ccc;
+        font-weight: 300;
+    }
+
+    .logo-section {
+        width: 120px;
+        height: 120px;
+        border-radius: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo-section img {
+        width: 90%;
+        height: 90%;
+        object-fit: contain;
+    }
+
+    /* Image Section */
+    .image-section {
+        position: relative;
+        height: 400px;
+        background: #f5f5f5;
+        overflow: hidden;
+    }
+
+    .image-section::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+        z-index: 1;
+    }
+
+    .image-placeholder {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+    }
+
+    .image-placeholder img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Content */
+    .content {
+        padding: 60px;
+    }
+
+    .section {
+        margin-bottom: 50px;
+    }
+
+    .section-title {
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: #000;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #000;
+        font-weight: 600;
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Ingredients Table */
+    .ingredients-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .ingredients-table thead {
+        background: #000;
+    }
+
+    .ingredients-table th {
+        padding: 18px 20px;
+        text-align: left;
+        font-family: 'Arial', sans-serif;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: white;
+        font-weight: 600;
+    }
+
+    .ingredients-table tbody tr {
+        border-bottom: 1px solid #e0e0e0;
+        transition: background 0.3s ease;
+    }
+
+    .ingredients-table tbody tr:hover {
+        background: #f9f9f9;
+    }
+
+    .ingredients-table tbody tr:last-child {
+        border-bottom: 2px solid #000;
+    }
+
+    .ingredients-table td {
+        padding: 16px 20px;
+        font-size: 15px;
+        color: #333;
+    }
+
+    .ingredients-table td:first-child {
+        font-weight: 500;
+        color: #000;
+    }
+
+    .ingredients-table td:nth-child(2),
+    .ingredients-table td:nth-child(3) {
+        font-family: 'Arial', sans-serif;
+        color: #666;
+    }
+
+    /* Procedure */
+    .procedure-content {
+        font-size: 16px;
+        line-height: 2;
+        color: #333;
+        text-align: justify;
+    }
+
+    /* Techniques Section */
+    .techniques-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0;
+        border: 2px solid #000;
+    }
+
+    .technique-item {
+        padding: 25px;
+        border: 1px solid #e0e0e0;
+        background: white;
+    }
+
+    .technique-item:nth-child(odd) {
+        background: #fafafa;
+    }
+
+    .technique-label {
+        font-family: 'Arial', sans-serif;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #999;
+        margin-bottom: 8px;
+    }
+
+    .technique-name {
+        font-size: 18px;
+        color: #000;
+        font-weight: 500;
+    }
+
+    /* Footer */
+    .footer {
+        background: #000;
+        padding: 30px 60px;
+        text-align: center;
+    }
+
+    .footer-text {
+        font-family: 'Arial', sans-serif;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: #666;
+    }
+
+    .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, #ccc 50%, transparent 100%);
+        margin: 50px 0;
+    }
+
+    @media (max-width: 768px) {
+        .header {
+            padding: 30px;
+        }
+
+        .header-content {
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .recipe-title {
+            font-size: 36px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .techniques-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .logo-section {
+            width: 80px;
+            height: 80px;
+        }
+    }
+</style>
+
+<body>
+
+    <!-- RECIPE 5: PAPAYA SWEET -->
+    <div class="recipe-card">
+        <div class="header">
+            <div class="header-content">
+                <div class="title-section">
+                    <div class="recipe-type">Standard Recipe</div>
+                    <h1 class="recipe-title">carrot cream</h1>
+                    <div class="recipe-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Portion</span>
+                            <span class="meta-value">1 Servings</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Equipment</span>
+                            <span class="meta-value">Knife, Cutting board, Medium pot, Spoon, Measuring cup or jug, Colander, Mixer, Container, Ladle, Kitchen</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="logo-section">
+                    <img src="logoblanco.png" alt="SENA">
+                </div>
+            </div>
+        </div>
+
+        <div class="image-section">
+            <div class="image-placeholder">
+                <img src="img/crema_zanahoria.jpeg" alt="crema de zanahoria">
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">Ingredients</h2>
+                <table class="ingredients-table">
+                    <thead>
+                        <tr>
+                            <th>Ingredient</th>
+                            <th>Quantity</th>
+                            <th>Unit</th>
+                            <th>Mise en Place</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>big onion</td>
+                            <td>1</td>
+                            <td>g</td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Medium carrots</td>
+                            <td>7</td>
+                            <td>g</td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td>
+vegetable broth</td>
+                            <td>1</td>
+                            <td>l</td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td>
+Cooking cream</td>
+                            <td>150</td>
+                            <td>ml</td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td>Ground white pepper</td>
+                            <td>*</td>
+                            <td>—</td>
+                            <td>salt</td>
+                        </tr>
+                        <tr>
+                            <td>Extra virgin olive oil</td>
+                            <td>*</td>
+                            <td>—</td>
+                            <td>—</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="section">
+                <h2 class="section-title">Procedure</h2>
+                <div class="procedure-content">
+                    Peel the onion and cut it into thin julienne strips. Heat a little oil in a pot and sauté the onion
+                    over medium heat for five minutes, without letting it brown. Meanwhile, wash the carrots, remove and
+                    discard the ends, and slice them.
+                    Add the carrots to the pot, stir, and sauté for a couple of minutes. Add the broth, season with salt
+                    and pepper, and bring to a boil. Cook over medium heat for 15 minutes, or until the carrots are
+                    tender. Blend and add the cream. Mix well and serve immediately. </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-text">SENA Standard Recipe Book</div>
+        </div>
+    </div>
+</body>
+
+</html>
